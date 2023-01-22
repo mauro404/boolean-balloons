@@ -4,7 +4,7 @@ const ErrorHandler = require('../utils/errorHandler');
 const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
 
 //Create a new product => POST /api/product/new
-exports.newProduct = async (req, res, next) => {
+exports.newProduct = catchAsyncErrors(async (req, res, next) => {
 
     req.body.user = req.user.id;
 
@@ -14,7 +14,7 @@ exports.newProduct = async (req, res, next) => {
         success: true,
         product
     });
-};
+});
 
 //Get all products => GET /api/products
 exports.getProducts = catchAsyncErrors(async (req, res, next) => {
