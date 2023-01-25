@@ -1,0 +1,67 @@
+[
+    {
+        "name" : "Heart balloons",
+        "price" : "6.00",
+        "description" : "A great way bring a special touch for a special moment.",
+        "ratings" : 4.5,
+        "images" : [{
+            "public_id" : "products/dsvbpny402gelwugv2le",
+            "url" : "https://res.cloudinary.com/bookit/image/upload/v1608062030/products/dsvbpny402gelwugv2le.jpg"
+        }],
+        "stock" : 50,
+        "numOfReviews" : 32,
+        "reviews": []
+    },
+    {
+        "name" : "White stripes",
+        "price" : "5.00",
+        "description" : "A seven nation army couldn't hold you back from partying.",
+        "ratings" : 1.65,
+        "images" : [{
+            "public_id" : "products/61oXGZ60GfL_fixco9",
+            "url" : "https://res.cloudinary.com/bookit/image/upload/v1614877995/products/61oXGZ60GfL_fixco9.jpg"
+        }],
+        "stock" : 0,
+        "numOfReviews" : 2,
+        "reviews": []
+    },
+    {
+        "name" : "Blue Dot",
+        "price" : "3.00",
+        "description" : "Great for kids or adults. Available in two different colors.",
+        "ratings" : 1.65,
+        "images" : [{
+            "public_id" : "products/61oXGZ60GfL_fixco9",
+            "url" : "https://res.cloudinary.com/bookit/image/upload/v1614877995/products/61oXGZ60GfL_fixco9.jpg"
+        }],
+        "stock" : 0,
+        "numOfReviews" : 2,
+        "reviews": []
+    },
+    {
+        "name" : "Pink Lemonade",
+        "price" : "3.00",
+        "description" : "Great for kids or adults. Available in two different colors.",
+        "ratings" : 1.65,
+        "images" : [{
+            "public_id" : "products/61oXGZ60GfL_fixco9",
+            "url" : "https://res.cloudinary.com/bookit/image/upload/v1614877995/products/61oXGZ60GfL_fixco9.jpg"
+        }],
+        "stock" : 0,
+        "numOfReviews" : 2,
+        "reviews": []
+    },
+    {
+        "name" : "Beetlejuice",
+        "price" : "4.00",
+        "description" : "The perfect way to celebrate your love for this spooky classic.",
+        "ratings" : 1.65,
+        "images" : [{
+            "public_id" : "products/61oXGZ60GfL_fixco9",
+            "url" : "https://res.cloudinary.com/bookit/image/upload/v1614877995/products/61oXGZ60GfL_fixco9.jpg"
+        }],
+        "stock" : 0,
+        "numOfReviews" : 2,
+        "reviews": []
+    }
+]
