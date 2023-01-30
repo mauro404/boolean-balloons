@@ -5,8 +5,8 @@
         "description" : "A great way bring a special touch for a special moment.",
         "ratings" : 4.5,
         "images" : [{
-            "public_id" : "products/dsvbpny402gelwugv2le",
-            "url" : "https://res.cloudinary.com/bookit/image/upload/v1608062030/products/dsvbpny402gelwugv2le.jpg"
+            "public_id" : "product-gallery/i6h0iwtxdp1olmujg6mg",
+            "url" : "https://res.cloudinary.com/dsg0062k4/image/upload/v1667514563/product-gallery/i6h0iwtxdp1olmujg6mg.png"
         }],
         "stock" : 50,
         "numOfReviews" : 32,
@@ -18,8 +18,8 @@
         "description" : "A seven nation army couldn't hold you back from partying.",
         "ratings" : 1.65,
         "images" : [{
-            "public_id" : "products/61oXGZ60GfL_fixco9",
-            "url" : "https://res.cloudinary.com/bookit/image/upload/v1614877995/products/61oXGZ60GfL_fixco9.jpg"
+            "public_id" : "product-gallery/pjiv2pesup0ahm1yxwhp",
+            "url" : "https://res.cloudinary.com/dsg0062k4/image/upload/v1667567189/product-gallery/pjiv2pesup0ahm1yxwhp.png"
         }],
         "stock" : 0,
         "numOfReviews" : 2,
@@ -31,8 +31,8 @@
         "description" : "Great for kids or adults. Available in two different colors.",
         "ratings" : 1.65,
         "images" : [{
-            "public_id" : "products/61oXGZ60GfL_fixco9",
-            "url" : "https://res.cloudinary.com/bookit/image/upload/v1614877995/products/61oXGZ60GfL_fixco9.jpg"
+            "public_id" : "product-gallery/ojk1sfm2ulbc7ryvswqv",
+            "url" : "https://res.cloudinary.com/dsg0062k4/image/upload/v1667514706/product-gallery/ojk1sfm2ulbc7ryvswqv.png"
         }],
         "stock" : 0,
         "numOfReviews" : 2,
@@ -44,8 +44,8 @@
         "description" : "Great for kids or adults. Available in two different colors.",
         "ratings" : 1.65,
         "images" : [{
-            "public_id" : "products/61oXGZ60GfL_fixco9",
-            "url" : "https://res.cloudinary.com/bookit/image/upload/v1614877995/products/61oXGZ60GfL_fixco9.jpg"
+            "public_id" : "product-gallery/brziqbg0whdbcyl3ghp8",
+            "url" : "https://res.cloudinary.com/dsg0062k4/image/upload/v1667514746/product-gallery/brziqbg0whdbcyl3ghp8.png"
         }],
         "stock" : 0,
         "numOfReviews" : 2,
@@ -57,8 +57,8 @@
         "description" : "The perfect way to celebrate your love for this spooky classic.",
         "ratings" : 1.65,
         "images" : [{
-            "public_id" : "products/61oXGZ60GfL_fixco9",
-            "url" : "https://res.cloudinary.com/bookit/image/upload/v1614877995/products/61oXGZ60GfL_fixco9.jpg"
+            "public_id" : "product-gallery/ixvp3ji5kunptukfll1m",
+            "url" : "https://res.cloudinary.com/dsg0062k4/image/upload/v1667514784/product-gallery/ixvp3ji5kunptukfll1m.png"
         }],
         "stock" : 0,
         "numOfReviews" : 2,

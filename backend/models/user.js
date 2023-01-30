@@ -21,14 +21,14 @@ const userSchema = new mongoose.Schema({
         minlength: [6, 'Your password must have at least 6 characters'],
         select: false
     },
-    // avatar: {
-    //     public_id: {
-    //         type: String,
-    //     },
-    //     url: {
-    //         type: String,
-    //     }
-    // },
+    avatar: {
+        public_id: {
+            type: String,
+        },
+        url: {
+            type: String,
+        }
+    },
     role: {
         type: String,
         default: 'user'

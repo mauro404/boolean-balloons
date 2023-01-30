@@ -1,12 +1,14 @@
 import React, { Fragment, useState, useEffect } from 'react'
-
+import { useNavigate } from 'react-router-dom'
 import MetaData from '../layout/MetaData'
 
 import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { register, clearErrors } from '../../actions/userActions'
 
-const Register = ({ history }) => {
+const Register = () => {
+
+    const navigate = useNavigate();
 
     const [user, setUser] = useState({
         name: '',
@@ -27,7 +29,7 @@ const Register = ({ history }) => {
     useEffect(() => {
 
         if (isAuthenticated) {
-            history.push('/')
+            navigate('/')
         }
 
         if (error) {
@@ -35,7 +37,7 @@ const Register = ({ history }) => {
             dispatch(clearErrors());
         }
 
-    }, [dispatch, alert, isAuthenticated, error, history])
+    }, [dispatch, alert, isAuthenticated, error])
 
     const submitHandler = (e) => {
         e.preventDefault();

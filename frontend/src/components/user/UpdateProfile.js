@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react'
-
+import { useNavigate } from 'react-router-dom'
 import MetaData from '../layout/MetaData'
 
 import { useAlert } from 'react-alert'
@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { updateProfile, loadUser, clearErrors } from '../../actions/userActions'
 import { UPDATE_PROFILE_RESET } from '../../constants/userConstants'
 
-const UpdateProfile = ({ history }) => {
+const UpdateProfile = () => {
 
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
@@ -16,6 +16,7 @@ const UpdateProfile = ({ history }) => {
 
     const alert = useAlert();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const { user } = useSelector(state => state.auth);
     const { error, isUpdated, loading } = useSelector(state => state.user)
@@ -37,14 +38,14 @@ const UpdateProfile = ({ history }) => {
             alert.success('User updated successfully')
             dispatch(loadUser());
 
-            history.push('/me')
+            navigate('/me')
 
             dispatch({
                 type: UPDATE_PROFILE_RESET
             })
         }
 
-    }, [dispatch, alert, error, history, isUpdated])
+    }, [dispatch, alert, error, isUpdated])
 
     const submitHandler = (e) => {
         e.preventDefault();
