@@ -1,16 +1,16 @@
 import React, { Fragment, useState, useEffect } from 'react'
 
-import MetaData from './layout/MetaData'
-import Product from './product/Product'
-import Loader from './layout/Loader'
+import MetaData from '../layout/MetaData'
+import Product from '../product/Product'
+import Loader from '../layout/Loader'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { useAlert } from 'react-alert';
-import { getProducts } from '../actions/productActions'
+import { getProducts } from '../../actions/productActions'
 
 import Row from 'react-bootstrap/Row';
 
-const Home = () => {
+const ProductList = () => {
 
     const alert = useAlert();
     const dispatch = useDispatch();
@@ -31,12 +31,12 @@ const Home = () => {
         <Fragment>
             {loading ? <Loader /> : (
                 <div>
-                    <MetaData title={'Home'} />
-                    <img className="" src="../images/hero-home.png" alt="hero-home" width="100%"/>
-                    <h1 style={{ paddingTop: '2%', textAlign: 'center' }}>Highlights</h1>
+                    <MetaData title={'Products'} />
+                    <img className="" src="../images/hero-products.png" alt="hero-products" width="100%"/>
+                    <h1 style={{ paddingTop: '2%', textAlign: 'center' }}>All Balloons</h1>
 
                     <Row xs={1} md={2} lg={4} className="g-4" style={{ paddingTop: '3%', paddingLeft: '5%', paddingRight: '5%', paddingBottom: "3%"}} >
-                            {products && products.slice(0,4).map(product => (
+                            {products?.map(product => (
                                 <Product key={product._id} product={product} />
                             ))
                             }
@@ -49,4 +49,4 @@ const Home = () => {
     )
 }
 
-export default Home
+export default ProductList;

@@ -1,29 +1,23 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import Col from 'react-bootstrap/Col';
 
-const Product = ({ product, col }) => {
+const Product = ({ product }) => {
     return (
-        <div className={`col-sm-12 col-md-6 col-lg-${col} my-3`}>
-            <div className="card p-3 rounded">
-                <img
-                    className="card-img-top mx-auto"
-                    src={product.images[0].url}
-                />
-                <div className="card-body d-flex flex-column">
-                    <h5 className="card-title">
-                        <Link to={`/product/${product._id}`}>{product.name}</Link>
-                    </h5>
-                    <div className="ratings mt-auto">
-                        <div className="rating-outer">
-                            <div className="rating-inner" style={{ width: `${(product.ratings / 5) * 100}%` }}></div>
-                        </div>
-                        <span id="no_of_reviews">({product.numOfReviews} Reviews)</span>
-                    </div>
-                    <p className="card-text">${product.price}</p>
-                    <Link to={`/product/${product._id}`} id="view_btn" className="btn btn-block">View Details</Link>
-                </div>
-            </div>
-        </div>
+        <Col key={product._id} style={{paddingBottom: "3%"}}>
+                <Card className="productCard">
+                  <Card.Img variant="top" src={product.images[0].url} alt={product.name}/>
+                  <Card.Body>
+                    <Card.Title>{product.name}</Card.Title>
+                    <Card.Text>$ {product.price}.00</Card.Text>
+                    <Card.Text>{product.description}</Card.Text>
+                    <Card.Text><Button variant="primary" href={`/product/${product._id}`}>More Details</Button></Card.Text>
+                    {/* <Card.Text><Card.Link className="text-decoration-none" href={`/products/${product._id}`}>More details</Card.Link></Card.Text> */}
+                  </Card.Body>
+                </Card>
+        </Col>
     )
 }
 

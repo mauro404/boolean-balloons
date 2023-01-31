@@ -5,6 +5,7 @@ import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
 import Home from './components/Home';
 import ProductDetails from './components/product/ProductDetails';
+import ProductList from './components/product/ProductList';
 import Login from './components/user/Login';
 import Register from './components/user/Register';
 import Profile from './components/user/Profile';
@@ -44,9 +45,10 @@ function App() {
     <Router>
       <div className="App">
         <Header />
-        <div className="container container-fluid">
+        <div className="">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/products" element={<ProductList />} />
             <Route path="/product/:id" element={<ProductDetails />} />
 
             <Route path="/cart" element={<Cart />} />
