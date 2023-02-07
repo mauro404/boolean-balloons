@@ -16,10 +16,12 @@ app.use(fileUpload());
 // Import all routes
 const products = require('./routes/product');
 const auth = require('./routes/auth');
+const payment = require('./routes/payment');
 
 
 app.use('/api', products)
 app.use('/api', auth)
+app.use('/api', payment)
 
 //Middleware to handle errors
 app.use(errorMiddleware);

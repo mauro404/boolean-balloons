@@ -16,6 +16,12 @@ import NewPassword from './components/user/NewPassword';
 import Cart from './components/cart/Cart';
 import Shipping from './components/cart/Shipping';
 import ConfirmOrder from './components/cart/ConfirmOrder';
+import Payment from './components/cart/Payment';
+import OrderSuccess from './components/cart/OrderSuccess';
+
+// Payment
+import { Elements } from '@stripe/react-stripe-js'
+import { loadStripe } from '@stripe/stripe-js'
 
 import ProtectedRoute from './components/route/ProtectedRoute';
 import { loadUser } from './actions/userActions'
@@ -54,6 +60,15 @@ function App() {
             <Route path="/cart" element={<Cart />} />
             <Route path="/shipping" element={ <ProtectedRoute> <Shipping /> </ProtectedRoute>} />
             <Route path="/order/confirm" element={ <ProtectedRoute> <ConfirmOrder /> </ProtectedRoute>} />
+            <Route path="/payment" element={ 
+              <ProtectedRoute> 
+              {stripeApiKey &&
+                <Elements stripe={loadStripe(stripeApiKey)}>
+                  <Payment /> 
+                </Elements>
+              }
+              </ProtectedRoute>} />
+              <Route path="/success" element={ <ProtectedRoute> <OrderSuccess /> </ProtectedRoute>} />
 
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
