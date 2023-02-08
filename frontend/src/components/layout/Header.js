@@ -43,7 +43,7 @@ const Header = () => {
               {user ? (
                 <NavDropdown title={<FontAwesomeIcon icon={faUser}/>} id="collasible-nav-dropdown" align="end">
                     <NavDropdown.Item href="/me">Profile</NavDropdown.Item>
-                    <NavDropdown.Item href="/orders">Orders</NavDropdown.Item>
+                    <NavDropdown.Item href="/orders/me">Orders</NavDropdown.Item>
                     <NavDropdown.Item href="/" onClick={logoutHandler}>Logout</NavDropdown.Item>
                     { user && user.role === 'admin' && (
                     <><NavDropdown.Divider />
