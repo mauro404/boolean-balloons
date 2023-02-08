@@ -18,6 +18,8 @@ import Shipping from './components/cart/Shipping';
 import ConfirmOrder from './components/cart/ConfirmOrder';
 import Payment from './components/cart/Payment';
 import OrderSuccess from './components/cart/OrderSuccess';
+import OrdersList from './components/order/OrdersList';
+import OrderDetails from './components/order/OrderDetails';
 
 // Payment
 import { Elements } from '@stripe/react-stripe-js'
@@ -68,7 +70,7 @@ function App() {
                 </Elements>
               }
               </ProtectedRoute>} />
-              <Route path="/success" element={ <ProtectedRoute> <OrderSuccess /> </ProtectedRoute>} />
+            <Route path="/success" element={ <ProtectedRoute> <OrderSuccess /> </ProtectedRoute>} />
 
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
@@ -77,6 +79,8 @@ function App() {
             <Route path="/me" element={ <ProtectedRoute> <Profile /> </ProtectedRoute>} />
             <Route path="/me/update" element={ <ProtectedRoute> <UpdateProfile /> </ProtectedRoute>} />
             <Route path="/password/update" element={ <ProtectedRoute> <UpdatePassword /> </ProtectedRoute>} />
+            <Route path="/orders/me" element={ <ProtectedRoute> <OrdersList /> </ProtectedRoute>} />
+            <Route path="/order/:id" element={ <ProtectedRoute> <OrderDetails /> </ProtectedRoute>} />
           </Routes>
         </div>
         <Footer />

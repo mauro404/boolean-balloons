@@ -52,7 +52,6 @@ const Payment = () => {
     if (orderInfo) {
         order.itemsPrice = orderInfo.itemsPrice
         order.shippingPrice = orderInfo.shippingPrice
-        order.taxPrice = orderInfo.taxPrice
         order.totalPrice = orderInfo.totalPrice
     }
 
@@ -111,14 +110,14 @@ const Payment = () => {
 
                     navigate('/success')
                 } else {
-                    alert.error('There is some issue while payment processing')
+                    // error('There is some issue while payment processing')
                 }
             }
 
 
         } catch (error) {
             document.querySelector('#pay_btn').disabled = false;
-            alert.error(error.response.data.message)
+            // alert.error(error.response.data.message)
         }
     }
 
