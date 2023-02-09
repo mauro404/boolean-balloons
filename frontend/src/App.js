@@ -26,6 +26,8 @@ import NewProduct from './components/admin/NewProduct';
 import UpdateProduct from './components/admin/UpdateProduct';
 import OrdersListAdm from './components/admin/OrdersListAdm';
 import ProcessOrder from './components/admin/ProcessOrder';
+import UsersList from './components/admin/UsersList';
+import UpdateUser from './components/admin/UpdateUser';
 
 // Payment
 import { Elements } from '@stripe/react-stripe-js'
@@ -94,6 +96,8 @@ function App() {
             <Route path="/admin/product/:id" element={ <ProtectedRoute> <UpdateProduct /> </ProtectedRoute>} />
             <Route path="/admin/orders" element={ <ProtectedRoute> <OrdersListAdm /> </ProtectedRoute>} />
             <Route path="/admin/orders/:id" element={ <ProtectedRoute> <ProcessOrder /> </ProtectedRoute>} />
+            <Route path="/admin/users" element={ <ProtectedRoute> <UsersList /> </ProtectedRoute>} />
+            <Route path="/admin/user/:id" element={ <ProtectedRoute> <UpdateUser /> </ProtectedRoute>} />
           </Routes>
         </div>
         <Footer />
