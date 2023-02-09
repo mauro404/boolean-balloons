@@ -20,6 +20,12 @@ import Payment from './components/cart/Payment';
 import OrderSuccess from './components/cart/OrderSuccess';
 import OrdersList from './components/order/OrdersList';
 import OrderDetails from './components/order/OrderDetails';
+import Dashboard from './components/admin/Dashboard';
+import ProductListAdm from './components/admin/ProductListAdm'
+import NewProduct from './components/admin/NewProduct';
+import UpdateProduct from './components/admin/UpdateProduct';
+import OrdersListAdm from './components/admin/OrdersListAdm';
+import ProcessOrder from './components/admin/ProcessOrder';
 
 // Payment
 import { Elements } from '@stripe/react-stripe-js'
@@ -81,6 +87,13 @@ function App() {
             <Route path="/password/update" element={ <ProtectedRoute> <UpdatePassword /> </ProtectedRoute>} />
             <Route path="/orders/me" element={ <ProtectedRoute> <OrdersList /> </ProtectedRoute>} />
             <Route path="/order/:id" element={ <ProtectedRoute> <OrderDetails /> </ProtectedRoute>} />
+
+            <Route path="/dashboard" element={ <ProtectedRoute> <Dashboard /> </ProtectedRoute>} />
+            <Route path="/admin/products" element={ <ProtectedRoute> <ProductListAdm /> </ProtectedRoute>} />
+            <Route path="/admin/product" element={ <ProtectedRoute> <NewProduct /> </ProtectedRoute>} />
+            <Route path="/admin/product/:id" element={ <ProtectedRoute> <UpdateProduct /> </ProtectedRoute>} />
+            <Route path="/admin/orders" element={ <ProtectedRoute> <OrdersListAdm /> </ProtectedRoute>} />
+            <Route path="/admin/orders/:id" element={ <ProtectedRoute> <ProcessOrder /> </ProtectedRoute>} />
           </Routes>
         </div>
         <Footer />

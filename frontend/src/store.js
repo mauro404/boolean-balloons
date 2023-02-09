@@ -2,14 +2,15 @@ import { legacy_createStore as createStore, combineReducers, applyMiddleware } f
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension'
 
-import { productsReducer, newProductReducer ,productDetailsReducer, newReviewReducer } from './reducers/productReducers';
+import { productsReducer, newProductReducer, productReducer, productDetailsReducer, newReviewReducer } from './reducers/productReducers';
 import { authReducer, userReducer, forgotPasswordReducer } from './reducers/userReducers';
 import { cartReducer } from './reducers/cartReducers';
-import { newOrderReducer, myOrdersReducer, orderDetailsReducer } from './reducers/orderReducers';
+import { newOrderReducer, myOrdersReducer, orderDetailsReducer, allOrdersReducer, orderReducer } from './reducers/orderReducers';
 
 const reducers = combineReducers({
     products: productsReducer,
     newProduct: newProductReducer,
+    productReducer: productReducer,
     productDetails: productDetailsReducer,
     auth: authReducer,
     user: userReducer,
@@ -17,7 +18,9 @@ const reducers = combineReducers({
     cart: cartReducer,
     newOrder: newOrderReducer,
     myOrders: myOrdersReducer,
+    allOrders: allOrdersReducer,
     orderDetails: orderDetailsReducer,
+    order: orderReducer,
     newReview: newReviewReducer
 });
 
