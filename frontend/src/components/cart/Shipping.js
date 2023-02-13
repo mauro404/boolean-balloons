@@ -8,6 +8,10 @@ import CheckoutSteps from './CheckoutSteps'
 import { useDispatch, useSelector } from 'react-redux'
 import { saveShippingInfo } from '../../actions/cartActions'
 
+import Form from "react-bootstrap/Form";
+import FloatingLabel from "react-bootstrap/FloatingLabel";
+import Button from "react-bootstrap/Button";
+
 const Shipping = () => {
 
     const navigate = useNavigate()
@@ -37,86 +41,103 @@ const Shipping = () => {
 
             <CheckoutSteps shipping />
 
-            <div className="row wrapper">
-                <div className="col-10 col-lg-5">
-                    <form className="shadow-lg" onSubmit={submitHandler}>
-                        <h1 className="mb-4">Shipping Info</h1>
-                        <div className="form-group">
-                            <label htmlFor="address_field">Address</label>
-                            <input
-                                type="text"
-                                id="address_field"
-                                className="form-control"
-                                value={address}
-                                onChange={(e) => setAddress(e.target.value)}
-                                required
-                            />
-                        </div>
+            <div className="LoginPage">
+                <Form className="" onSubmit={submitHandler}>
+                    <h1 className="h3 mb-3 fw-normal">Shipping Info</h1>
+                    <Form.Group>
+                        <FloatingLabel
+                        label="Address"
+                        className="mb-3"
+                        >
+                        <Form.Control
+                            required
+                            type="text"
+                            className="form-control mb-3"
+                            id="floatingInput"
+                            // name="address"
+                            value={address}
+                            onChange={(e) => setAddress(e.target.value)}
+                        />
+                        </FloatingLabel>
+                    </Form.Group>
 
-                        <div className="form-group">
-                            <label htmlFor="city_field">City</label>
-                            <input
-                                type="text"
-                                id="city_field"
-                                className="form-control"
-                                value={city}
-                                onChange={(e) => setCity(e.target.value)}
-                                required
-                            />
-                        </div>
+                    <Form.Group>
+                        <FloatingLabel
+                        label="City"
+                        className="mb-3"
+                        >
+                        <Form.Control
+                            required
+                            type="text"
+                            className="form-control mb-3"
+                            id="floatingInput"
+                            value={city}
+                            onChange={(e) => setCity(e.target.value)}
+                        />
+                        </FloatingLabel>
+                    </Form.Group>
 
-                        <div className="form-group">
-                            <label htmlFor="phone_field">Phone No</label>
-                            <input
-                                type="phone"
-                                id="phone_field"
-                                className="form-control"
-                                value={phoneNo}
-                                onChange={(e) => setPhoneNo(e.target.value)}
-                                required
-                            />
-                        </div>
+                    <Form.Group>
+                        <FloatingLabel
+                        label="Phone Number"
+                        className="mb-3"
+                        >
+                        <Form.Control
+                            required
+                            type="phone"
+                            className="form-control mb-3"
+                            id="floatingInput"
+                            value={phoneNo}
+                            onChange={(e) => setPhoneNo(e.target.value)}
+                        />
+                        </FloatingLabel>
+                    </Form.Group>
 
-                        <div className="form-group">
-                            <label htmlFor="postal_code_field">Postal Code</label>
-                            <input
+                    <Form.Group>
+                        <FloatingLabel
+                        label="Postal Code"
+                        className="mb-3"
+                        >
+                        <Form.Control
+                            required
+                            type="number"
+                            className="form-control mb-3"
+                            id="floatingInput"
+                            value={postalCode}
+                            onChange={(e) => setPostalCode(e.target.value)}
+                        />
+                        </FloatingLabel>
+                    </Form.Group>
+
+                    <Form.Group>
+                        <FloatingLabel
+                        label="Country"
+                        className="mb-3"
+                        >
+                            <Form.Select
+                                required
                                 type="number"
-                                id="postal_code_field"
-                                className="form-control"
-                                value={postalCode}
-                                onChange={(e) => setPostalCode(e.target.value)}
-                                required
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label htmlFor="country_field">Country</label>
-                            <select
-                                id="country_field"
-                                className="form-control"
+                                className="form-control mb-3"
+                                id="floatingInput"
                                 value={country}
                                 onChange={(e) => setCountry(e.target.value)}
-                                required
                             >
- 
                                 {countriesList.map(country => (
                                     <option key={country.name} value={country.name}>
                                         {country.name}
                                     </option>
                                 ))}
+                            </Form.Select>
+                        </FloatingLabel>
+                    </Form.Group>
 
-                            </select>
-                        </div>
-
-                        <button
-                            id="shipping_btn"
-                            type="submit"
-                            className="btn btn-block py-3"
-                        >
-                            CONTINUE
-                            </button>
-                    </form>
-                </div>
+                    <Button
+                        type="submit"
+                        className="mb-3 btn-lg w-100"
+                    >
+                        Continue
+                    </Button>
+                </Form>
             </div>
 
         </Fragment>
