@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Button, Col, Row, Container } from "react-bootstrap";
+import { Button, Col, Row, Container, Stack } from "react-bootstrap";
 
 
 import MetaData from '../layout/MetaData'
@@ -8,7 +8,7 @@ import MetaData from '../layout/MetaData'
 import { useDispatch, useSelector } from 'react-redux'
 import { addItemToCart, removeItemFromCart } from '../../actions/cartActions'
 
-const Cart = ({ history }) => {
+const Cart = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -44,64 +44,73 @@ const Cart = ({ history }) => {
     return (
         <Fragment>
             <MetaData title={'Shopping Cart'} />
-            {cartItems.length === 0 ? <h2 className="mt-5">Your Cart is Empty</h2> : (
+            {cartItems.length === 0 ? <Container className="LoginPage">
+                <img
+                    className="mb-4"
+                    src="../../images/logo2.png"
+                    alt="logo"
+                    width="66px"
+                />
+                <h1 className="h3 mb-3 fw-normal">Your cart is Empty</h1>
+                </Container> : (
                 <Container>
-                    <h2 className="mt-5">Your Cart</h2>
+                    <h1 className="h3 mb-3 fw-normal mt-4">Your Cart</h1>
+                    <hr className="mt-3"/>
 
-                    <Row className="">
-                        {/* <div className="col-12 col-lg-8"> */}
+                    {cartItems.map(item => (
+                        <Row className="d-flex justify-content-between align-items-center" key={item.product}>
+                            <Col md="2" lg="2" xl="2">
+                                <img className="rounded-3"src={item.image} alt={item.name} height="" width="194" />
+                            </Col>
+                            <Col md="3" lg="3" xl="3">
+                                <h6><Link style={{ textDecoration: "none", color: "black" }} to={`/product/${item.product}`}>{item.name}</Link></h6>
+                                <h6 className="text-muted text-black mb-0" style={{ fontSize: ".75rem" }}>
+                                    Unit price: ${item.price.toFixed(2)}
+                                </h6>
+                            </Col>
 
-                            {cartItems.map(item => (
-                                <Fragment>
-                                    <hr />
+                            <Col className="col-12 col-lg-6 d-flex">
+                                <Col className="col-6 col-lg-9">
+                                    <div></div>
+                                </Col>
+                                <Col className="col-6 col-lg-4">
+                                    <Stack direction='horizontal' className=''>
+                                        <span className="btn btn-light minus" onClick={() => decreaseQty(item.product, item.quantity)}>-</span>
+                                        <input type="number" className="form-control count text-center" value={item.quantity} readOnly />
+                                        <span className="btn btn-light plus" onClick={() => increaseQty(item.product, item.quantity, item.stock)}>+</span>
+                                        <Col className="col-1 col-lg-2">   
+                                        </Col>
+                                        <span className="" style={{ color: "#0D6EFD" }}>
+                                        ${((item.price)*(item.quantity)).toFixed(2)}
+                                        </span>
+                                    </Stack>
+                                </Col>
 
-                                    <div className="cart-item" key={item.product}>
-                                        <div className="row">
-                                            <div className="col-4 col-lg-3">
-                                                <img className="rounded-3"src={item.image} alt={item.name} height="" width="100" />
-                                            </div>
+                                <Col className="col-1 col-lg-1">   
+                                </Col>
+                            </Col>
 
-                                            <div className="col-5 col-lg-3">
-                                                <Link to={`/product/${item.product}`}>{item.name}</Link>
-                                            </div>
+                            <Col className="col-1 col-lg-1 text-end">
+                                <i id="delete_cart_item" className="fa fa-trash" onClick={() => removeCartItemHandler(item.product)} ></i>
+                            </Col>
 
+                            <hr className="mt-3"/>
+                        </Row>
+                    ))}
 
-                                            <div className="col-4 col-lg-2 mt-4 mt-lg-0">
-                                                <p id="card_item_price">${item.price}</p>
-                                            </div>
-
-                                            <div className="col-4 col-lg-3 mt-4 mt-lg-0">
-                                                <div className="stockCounter d-inline">
-                                                    <span className="btn btn-light minus" onClick={() => decreaseQty(item.product, item.quantity)}>-</span>
-
-                                                    <input type="number" className="form-control count d-inline" value={item.quantity} readOnly />
-
-                                                    <span className="btn btn-light plus" onClick={() => increaseQty(item.product, item.quantity, item.stock)}>+</span>
-                                                </div>
-                                            </div>
-
-                                            <div className="col-4 col-lg-1 mt-4 mt-lg-0">
-                                                <i id="delete_cart_item" className="fa fa-trash" onClick={() => removeCartItemHandler(item.product)} ></i>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <hr />
-                                </Fragment>
-                            ))}
-
-                        {/* </div> */}
-                    </Row>
-
-                        <Row className="">
-                            <div id="order_summary">
-                                {/* <h4>Order Summary</h4>
-                                <hr /> */}
-                                <p>Total:  <span className="order-summary-values">Units {cartItems.reduce((acc, item) => (acc + Number(item.quantity)), 0)} </span><span className="order-summary-values">Price ${cartItems.reduce((acc, item) => acc + item.quantity * item.price, 0).toFixed(2)}</span></p>
+                        <Row className="text-end mb-4 justify-content-end">
+                                <p> Items Price:{" "}
+                                    <span>
+                                        ${cartItems.reduce((acc, item) => acc + item.quantity * item.price, 0).toFixed(2)}
+                                    </span>
+                                </p>
 
                                 <hr />
-                                <button id="checkout_btn" className="btn btn-primary btn-block" onClick={checkoutHandler}>Check out</button>
-                            </div>
+                                <Col md="2" lg="2" xl="2">
+                                <Button id="checkout_btn" className="btn btn-lg" onClick={checkoutHandler}>
+                                    Check out
+                                </Button>
+                                </Col>
                         </Row>
                 </Container>
             )}
