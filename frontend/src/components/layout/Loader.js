@@ -1,8 +1,13 @@
 import React from 'react'
+import { Spinner, Container } from 'react-bootstrap'
 
 const Loader = () => {
   return (
-    <div className='loader'> </div>
+    <Container>
+      <Spinner animation="border" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </Spinner>
+    </Container>
   )
 }
 

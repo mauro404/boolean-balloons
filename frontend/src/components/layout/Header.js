@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Route, Link } from "react-router-dom";
+import { Route, NavLink } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
 // import { useAlert } from 'react-alert'
@@ -7,7 +7,6 @@ import { logout } from "../../actions/userActions";
 
 import "../../App.css";
 
-import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
@@ -35,15 +34,15 @@ const Header = () => {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="/products">Products</Nav.Link>
-              <Nav.Link href="/contact">Contact</Nav.Link>
-              <Nav.Link href="/about">About</Nav.Link>
+              <Nav.Link as={NavLink} to="/products">Products</Nav.Link>
+              <Nav.Link as={NavLink} to="/contact">Contact</Nav.Link>
+              <Nav.Link as={NavLink} to="/about">About</Nav.Link>
             </Nav>
             <Nav>
               {user ? (
                 <NavDropdown title={<FontAwesomeIcon icon={faUser}/>} id="collasible-nav-dropdown" align="end">
                     <NavDropdown.Item href="/me">Profile</NavDropdown.Item>
-                    <NavDropdown.Item href="/orders/me">Orders</NavDropdown.Item>
+                    {/* <NavDropdown.Item href="/orders/me">Orders</NavDropdown.Item> */}
                     <NavDropdown.Item href="/" onClick={logoutHandler}>Logout</NavDropdown.Item>
                     { user && user.role === 'admin' && (
                     <><NavDropdown.Divider />
@@ -54,7 +53,24 @@ const Header = () => {
                 </NavDropdown>
               ) : !loading && <Nav.Link href="/login">Login</Nav.Link>}
 
-                <Nav.Link href="/cart"><FontAwesomeIcon icon={faCartShopping}/></Nav.Link>
+                <Nav.Link href="/cart">
+                  <FontAwesomeIcon style={{ position: "relative" }}icon={faCartShopping}/>
+                    {cartItems.length > 0 && (
+                    <div
+                    className="rounded-circle bg-danger d-flex justify-content-center align-items-center"
+                    style={{
+                      color: "white",
+                      width: "1.3rem",
+                      height: "1.3rem",
+                      fontSize: "0.7rem",
+                      position: "absolute",
+                      transform: "translate(70%, -170%)",
+                    }}
+                  >
+                    {cartItems.reduce((acc, item) => (acc + Number(item.quantity)), 0)}
+                  </div>
+                  )}
+                </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </>
