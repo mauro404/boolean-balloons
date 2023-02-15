@@ -1,7 +1,6 @@
 import React, { Fragment, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import MetaData from '../layout/MetaData'
-import CheckoutSteps from './CheckoutSteps'
 
 // import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
@@ -11,9 +10,7 @@ import { useStripe, useElements, CardNumberElement, CardExpiryElement, CardCvcEl
 
 import axios from 'axios'
 
-import Form from "react-bootstrap/Form";
-import FloatingLabel from "react-bootstrap/FloatingLabel";
-import Button from "react-bootstrap/Button";
+import { Button, Form, FloatingLabel, Breadcrumb } from "react-bootstrap";
 
 const options = {
     style: {
@@ -129,11 +126,21 @@ const Payment = () => {
         <Fragment>
             <MetaData title={'Payment'} />
 
-            <CheckoutSteps shipping confirmOrder payment />
+            <Breadcrumb className='mt-4 px-4'>
+                <Breadcrumb.Item href='/shipping'>Shipping</Breadcrumb.Item>
+                <Breadcrumb.Item href='/order/confirm'>Confirm Order</Breadcrumb.Item>
+                <Breadcrumb.Item active>Payment</Breadcrumb.Item>
+            </Breadcrumb>
 
             <div className="LoginPage">
+                <img
+                    className="mb-4"
+                    src="../../images/logo2.png"
+                    alt="logo"
+                    width="66px"
+                />
                 <Form className="" onSubmit={submitHandler}>
-                    <h1 className="h3 mb-3 fw-normal">Card Info</h1>
+                    {/* <h1 className="h3 mb-3 fw-normal">Card Information</h1> */}
                     <Form.Group>
                         <FloatingLabel
                         label="Card Number"
@@ -190,7 +197,6 @@ const Payment = () => {
 
                 </Form>
             </div>
-
         </Fragment>
     )
 }

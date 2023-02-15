@@ -3,14 +3,11 @@ import { useNavigate } from 'react-router-dom'
 import { countries } from 'countries-list'
 
 import MetaData from '../layout/MetaData'
-import CheckoutSteps from './CheckoutSteps'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { saveShippingInfo } from '../../actions/cartActions'
 
-import Form from "react-bootstrap/Form";
-import FloatingLabel from "react-bootstrap/FloatingLabel";
-import Button from "react-bootstrap/Button";
+import { Button, Form, FloatingLabel, Breadcrumb } from "react-bootstrap";
 
 const Shipping = () => {
 
@@ -38,12 +35,22 @@ const Shipping = () => {
         <Fragment>
 
             <MetaData title={'Shipping Info'} />
-
-            <CheckoutSteps shipping />
+            
+            <Breadcrumb className='mt-4 px-4'>
+                <Breadcrumb.Item active>Shipping</Breadcrumb.Item>
+                <Breadcrumb.Item >Confirm Order</Breadcrumb.Item>
+                <Breadcrumb.Item >Payment</Breadcrumb.Item>
+            </Breadcrumb>
 
             <div className="LoginPage">
+                <img
+                    className="mb-4"
+                    src="../../images/logo2.png"
+                    alt="logo"
+                    width="66px"
+                />
                 <Form className="" onSubmit={submitHandler}>
-                    <h1 className="h3 mb-3 fw-normal">Shipping Info</h1>
+                    {/* <h1 className="h3 mb-3 fw-normal">Shipping Info</h1> */}
                     <Form.Group>
                         <FloatingLabel
                         label="Address"
@@ -139,6 +146,7 @@ const Shipping = () => {
                     </Button>
                 </Form>
             </div>
+            
 
         </Fragment>
     )
