@@ -1,16 +1,12 @@
 import React, { Fragment, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import MetaData from '../layout/MetaData'
-
-// import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { createOrder, clearErrors } from '../../actions/orderActions'
-
-import { useStripe, useElements, CardNumberElement, CardExpiryElement, CardCvcElement } from '@stripe/react-stripe-js'
-
+import MetaData from '../layout/MetaData'
 import axios from 'axios'
-
-import { Button, Form, FloatingLabel, Breadcrumb } from "react-bootstrap";
+import { toast } from 'react-toastify'
+import { useStripe, useElements, CardNumberElement, CardExpiryElement, CardCvcElement } from '@stripe/react-stripe-js'
+import { Button, Form, FloatingLabel, Breadcrumb } from "react-bootstrap"
 
 const options = {
     style: {
@@ -24,8 +20,6 @@ const options = {
 }
 
 const Payment = () => {
-
-    // const alert = useAlert();
     const navigate = useNavigate();
     const stripe = useStripe();
     const elements = useElements();
@@ -36,12 +30,10 @@ const Payment = () => {
     const { error } = useSelector(state => state.newOrder)
 
     useEffect(() => {
-
         if (error) {
-            // alert.error(error)
+            toast.error(error)
             dispatch(clearErrors())
         }
-
     }, [dispatch, error])
 
     const order = {
@@ -95,10 +87,9 @@ const Payment = () => {
             });
 
             if (result.error) {
-                // alert.error(result.error.message);
+                toast.error(result.error.message);
                 document.querySelector('#pay_btn').disabled = false;
             } else {
-
                 // The payment is processed or not
                 if (result.paymentIntent.status === 'succeeded') {
 
@@ -111,14 +102,13 @@ const Payment = () => {
 
                     navigate('/success')
                 } else {
-                    // error('There is some issue while payment processing')
+                    toast.error('There is some issue while payment processing')
                 }
             }
-
-
+            
         } catch (error) {
             document.querySelector('#pay_btn').disabled = false;
-            // alert.error(error.response.data.message)
+            toast.error(error.response.data.message)
         }
     }
 

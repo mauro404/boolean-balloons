@@ -1,16 +1,14 @@
 import React, { Fragment, useEffect } from 'react'
-import { useParams } from "react-router";
+import { useParams } from 'react-router'
 import { Link } from 'react-router-dom'
-import Container from 'react-bootstrap/Container'
-
-import MetaData from '../layout/MetaData'
-import Loader from '../layout/Loader'
-
 import { useDispatch, useSelector } from 'react-redux'
 import { getOrderDetails, clearErrors } from '../../actions/orderActions'
+import { toast } from 'react-toastify'
+import MetaData from '../layout/MetaData'
+import Loader from '../layout/Loader'
+import Container from 'react-bootstrap/Container'
 
 const OrderDetails = () => {
-
     const dispatch = useDispatch();
     const params = useParams();
 
@@ -21,6 +19,7 @@ const OrderDetails = () => {
         dispatch(getOrderDetails(params.id));
 
         if (error) {
+            toast.error(error)
             dispatch(clearErrors())
         }
     }, [dispatch, error, params.id])

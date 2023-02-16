@@ -7,17 +7,14 @@ import {
   clearErrors,
 } from "../../actions/productActions";
 import { addItemToCart } from "../../actions/cartActions";
-
-import { Button, Col, Row, Modal } from "react-bootstrap";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-regular-svg-icons";
-
+import { NEW_REVIEW_RESET } from "../../constants/productConstants";
+import { toast } from "react-toastify";
 import Loader from "../layout/Loader";
 import MetaData from "../layout/MetaData";
 import ReviewsList from "./ReviewsList";
-
-import { NEW_REVIEW_RESET } from "../../constants/productConstants";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-regular-svg-icons";
+import { Button, Modal } from "react-bootstrap";
 
 const colors = {
   orange: "#FFBA5A",
@@ -45,6 +42,7 @@ const ProductDetails = () => {
 
   const addToCart = () => {
     dispatch(addItemToCart(params.id, quantity));
+    toast.success("Item Added to Cart");
   };
   const increaseQty = () => {
     const count = document.querySelector(".count");
@@ -107,17 +105,17 @@ const ProductDetails = () => {
   useEffect(() => {
     dispatch(getProductDetails(params.id));
     if (error) {
-      // alert.error(error);
+      toast.error(error);
       dispatch(clearErrors());
     }
 
     if (reviewError) {
-      // alert.error(reviewError);
+      toast.error(reviewError);
       dispatch(clearErrors());
     }
 
     if (success) {
-      // alert.success('Reivew posted successfully')
+      toast.success('Review posted successfully')
       dispatch({ type: NEW_REVIEW_RESET });
     }
   }, [dispatch, error, reviewError, params.id, success]);

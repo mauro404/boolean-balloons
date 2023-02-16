@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import OrdersList from '../order/OrdersList'
 
@@ -11,7 +11,6 @@ import { myOrders, clearErrors } from '../../actions/orderActions'
 import { Col, Row, Container, Card } from "react-bootstrap";
 
 const Profile = () => {
-
     const { user, loading } = useSelector(state => state.auth)
 
     const { shippingInfo } = useSelector(state => state.cart)
@@ -33,8 +32,8 @@ const Profile = () => {
                 <Container>
                     <MetaData title={'Profile'} />
 
-                    <h2 className="mt-5 ml-5"></h2>
-                    <Row className='mb-5'>
+                    {/* <h2 className="mt-5 ml-5"></h2> */}
+                    <Row className='m-5'>
                         <Col lg={4}>
                             <Card className="bg-light">
                                 <Card.Body className="text-center">
@@ -69,7 +68,7 @@ const Profile = () => {
                             />
                             <h1 className="h3 mb-3 fw-normal">There are no Orders</h1>
                             </Container> : (<Container>
-                            <h2 className="my-3 px-3">My Orders</h2>
+                            <h2 className="px-3 pb-2">My Orders</h2>
                             <OrdersList /> </Container>)}
                         </Col>
 

@@ -1,44 +1,36 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import MetaData from '../layout/MetaData'
-
-// import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { updatePassword, clearErrors } from '../../actions/userActions'
 import { UPDATE_PASSWORD_RESET } from '../../constants/userConstants'
+import { toast } from 'react-toastify'
+import MetaData from '../layout/MetaData'
+import { Form, FloatingLabel, Button } from 'react-bootstrap'
 
-import Form from "react-bootstrap/Form";
-import FloatingLabel from "react-bootstrap/FloatingLabel";
-import Button from "react-bootstrap/Button";
-
-const UpdatePassword = ({ history }) => {
-
+const UpdatePassword = () => {
     const [oldPassword, setOldPassword] = useState('')
     const [password, setPassword] = useState('')
 
-    // const alert = useAlert();
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const { error, isUpdated, loading } = useSelector(state => state.user)
 
     useEffect(() => {
-
         if (error) {
-            // alert.error(error);
+            toast.error(error);
             dispatch(clearErrors());
         }
 
         if (isUpdated) {
-            // alert.success('Password updated successfully')
+            toast.success('Password updated successfully')
             navigate('/me')
 
             dispatch({
                 type: UPDATE_PASSWORD_RESET
             })
         }
-
-    }, [dispatch, error, history, isUpdated])
+    }, [dispatch, error, isUpdated])
 
     const submitHandler = (e) => {
         e.preventDefault();
@@ -97,7 +89,7 @@ const UpdatePassword = ({ history }) => {
                     </Form.Group>
 
 
-                    <Button className="mb-3 btn-lg w-100" variant="primary" type="submit">
+                    <Button className="mb-3 btn-lg w-100" variant="primary" type="submit" disabled={loading ? true : false}>
                         Update Password
                     </Button>
 

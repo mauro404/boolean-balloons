@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
@@ -59,10 +59,8 @@ function App() {
   }, [])
 
   return (
-    <Router>
       <div className="App">
         <Header />
-        <div className="">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/products" element={<ProductList />} />
@@ -101,10 +99,8 @@ function App() {
             <Route path="/admin/user/:id" element={ <ProtectedRoute> <UpdateUser /> </ProtectedRoute>} />
             <Route path="/admin/reviews" element={ <ProtectedRoute> <ProductReviews /> </ProtectedRoute>} />
           </Routes>
-        </div>
         <Footer />
       </div>
-    </Router>
   );
 }
 

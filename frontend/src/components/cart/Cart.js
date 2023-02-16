@@ -1,15 +1,11 @@
 import React, { Fragment } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Button, Col, Row, Container, Stack } from "react-bootstrap";
-
-
-import MetaData from '../layout/MetaData'
-
 import { useDispatch, useSelector } from 'react-redux'
 import { addItemToCart, removeItemFromCart } from '../../actions/cartActions'
+import MetaData from '../layout/MetaData'
+import { Button, Col, Row, Container, Stack } from 'react-bootstrap'
 
 const Cart = () => {
-
     const dispatch = useDispatch();
     const navigate = useNavigate();
 

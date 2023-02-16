@@ -1,29 +1,20 @@
 import React, { Fragment } from "react";
-import { Route, NavLink } from "react-router-dom";
-
+import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-// import { useAlert } from 'react-alert'
 import { logout } from "../../actions/userActions";
-
-import "../../App.css";
-
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
-
+import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCartShopping, faUser } from "@fortawesome/free-solid-svg-icons"
+import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 
 const Header = () => {
-  // const alert = useAlert();
   const dispatch = useDispatch();
-
   const { user, loading } = useSelector((state) => state.auth);
   const { cartItems } = useSelector((state) => state.cart);
 
   const logoutHandler = () => {
+    toast.success('Logged out successfully.')
     dispatch(logout());
-    // alert.success('Logged out successfully.')
   };
 
   return (

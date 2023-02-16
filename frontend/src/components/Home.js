@@ -1,31 +1,24 @@
-import React, { Fragment, useState, useEffect } from 'react'
-
+import React, { Fragment, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getProducts } from '../actions/productActions'
+import { toast } from 'react-toastify'
 import MetaData from './layout/MetaData'
 import Product from './product/Product'
 import Loader from './layout/Loader'
-
-import { useDispatch, useSelector } from 'react-redux'
-import { useAlert } from 'react-alert';
-import { getProducts } from '../actions/productActions'
-
-import Row from 'react-bootstrap/Row';
+import Row from 'react-bootstrap/Row'
 
 const Home = () => {
-
-    const alert = useAlert();
     const dispatch = useDispatch();
-
     const { loading, products, error } = useSelector(state => state.products)
 
     useEffect(() => {
         if (error) {
-            return alert.error(error)
+            return toast.error(error)
         }
 
         dispatch(getProducts());
 
-
-    }, [dispatch, alert, error])
+    }, [dispatch, error])
 
     return (
         <Fragment>

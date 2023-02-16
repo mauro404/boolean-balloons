@@ -1,35 +1,24 @@
 import React, { Fragment, useState, useEffect } from 'react'
-
-import MetaData from '../layout/MetaData'
-
-// import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { forgotPassword, clearErrors } from '../../actions/userActions'
-
-import Form from "react-bootstrap/Form";
-import FloatingLabel from "react-bootstrap/FloatingLabel";
-import Button from "react-bootstrap/Button";
+import { toast } from 'react-toastify'
+import MetaData from '../layout/MetaData'
+import { Form, FloatingLabel, Button } from 'react-bootstrap'
 
 const ForgotPassword = () => {
-
     const [email, setEmail] = useState('')
-
-    // const alert = useAlert();
     const dispatch = useDispatch();
-
     const { error, loading, message } = useSelector(state => state.forgotPassword)
 
     useEffect(() => {
-
         if (error) {
-            // alert.error(error);
+            toast.error(error);
             dispatch(clearErrors());
         }
 
         if (message) {
-            // alert.success(message)
+            toast.success(message)
         }
-
     }, [dispatch, error, message])
 
     const submitHandler = (e) => {
@@ -45,7 +34,7 @@ const ForgotPassword = () => {
         <Fragment>
             <MetaData title={'Forgot Password'} />
 
-            <div className="ForgotPassword">
+            <div className="LoginPage">
                 <Form className="" onSubmit={submitHandler}>
                 <img
                     className="mb-4"
