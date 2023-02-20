@@ -9,7 +9,7 @@ import Loader from '../layout/Loader'
 import Sidebar from './Sidebar'
 import { Table, Container } from 'react-bootstrap'
 
-const OrdersList = () => {
+const OrdersListAdm = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch();
 
@@ -92,4 +92,4 @@ const OrdersList = () => {
     )
 }
 
-export default OrdersList
+export default OrdersListAdm
