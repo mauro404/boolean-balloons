@@ -1,194 +1,184 @@
-import React, { Fragment, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import { createOrder, clearErrors } from '../../actions/orderActions'
-import MetaData from '../layout/MetaData'
-import axios from 'axios'
-import { toast } from 'react-toastify'
-import { useStripe, useElements, CardNumberElement, CardExpiryElement, CardCvcElement } from '@stripe/react-stripe-js'
-import { Button, Form, FloatingLabel, Breadcrumb } from "react-bootstrap"
+import React, { Fragment, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { createOrder, clearErrors } from "../../actions/orderActions";
+import { clearCart } from "../../actions/cartActions";
+import MetaData from "../layout/MetaData";
+import axios from "axios";
+import { toast } from "react-toastify";
+import {
+  useStripe,
+  useElements,
+  CardNumberElement,
+  CardExpiryElement,
+  CardCvcElement,
+} from "@stripe/react-stripe-js";
+import { Button, Form, FloatingLabel, Breadcrumb } from "react-bootstrap";
 
 const options = {
-    style: {
-        base: {
-            fontSize: '16px'
-        },
-        invalid: {
-            color: '#9e2146'
-        }
-    }
-}
+  style: {
+    base: {
+      fontSize: "16px",
+    },
+    invalid: {
+      color: "#9e2146",
+    },
+  },
+};
 
 const Payment = () => {
-    const navigate = useNavigate();
-    const stripe = useStripe();
-    const elements = useElements();
-    const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const stripe = useStripe();
+  const elements = useElements();
+  const dispatch = useDispatch();
 
-    const { user } = useSelector(state => state.auth)
-    const { cartItems, shippingInfo } = useSelector(state => state.cart);
-    const { error } = useSelector(state => state.newOrder)
+  const { user } = useSelector((state) => state.auth);
+  const { cartItems, shippingInfo } = useSelector((state) => state.cart);
+  const { error } = useSelector((state) => state.newOrder);
 
-    useEffect(() => {
-        if (error) {
-            toast.error(error)
-            dispatch(clearErrors())
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+      dispatch(clearErrors());
+    }
+  }, [dispatch, error]);
+
+  const order = {
+    orderItems: cartItems,
+    shippingInfo,
+  };
+
+  const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
+  if (orderInfo) {
+    order.itemsPrice = orderInfo.itemsPrice;
+    order.shippingPrice = orderInfo.shippingPrice;
+    order.totalPrice = orderInfo.totalPrice;
+  }
+
+  const paymentData = {
+    amount: Math.round(orderInfo.totalPrice * 100),
+  };
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+
+    document.querySelector("#pay_btn").disabled = true;
+
+    let res;
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+
+      res = await axios.post("/api/payment/process", paymentData, config);
+
+      const clientSecret = res.data.client_secret;
+
+      console.log(clientSecret);
+
+      if (!stripe || !elements) {
+        return;
+      }
+
+      const result = await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: elements.getElement(CardNumberElement),
+          billing_details: {
+            name: user.name,
+            email: user.email,
+          },
+        },
+      });
+
+      if (result.error) {
+        toast.error(result.error.message);
+        document.querySelector("#pay_btn").disabled = false;
+      } else {
+        // The payment is processed or not
+        if (result.paymentIntent.status === "succeeded") {
+          order.paymentInfo = {
+            id: result.paymentIntent.id,
+            status: result.paymentIntent.status,
+          };
+
+          dispatch(createOrder(order));
+          dispatch(clearCart(cartItems));
+
+          navigate("/success");
+        } else {
+          toast.error("There is some issue while payment processing");
         }
-    }, [dispatch, error])
-
-    const order = {
-        orderItems: cartItems,
-        shippingInfo
+      }
+    } catch (error) {
+      document.querySelector("#pay_btn").disabled = false;
+      toast.error(error.response.data.message);
     }
+  };
 
-    const orderInfo = JSON.parse(sessionStorage.getItem('orderInfo'));
-    if (orderInfo) {
-        order.itemsPrice = orderInfo.itemsPrice
-        order.shippingPrice = orderInfo.shippingPrice
-        order.totalPrice = orderInfo.totalPrice
-    }
+  return (
+    <Fragment>
+      <MetaData title={"Payment"} />
 
-    const paymentData = {
-        amount: Math.round(orderInfo.totalPrice * 100)
-    }
+      <Breadcrumb className="mt-4 px-4">
+        <Breadcrumb.Item href="/shipping">Shipping</Breadcrumb.Item>
+        <Breadcrumb.Item href="/order/confirm">Confirm Order</Breadcrumb.Item>
+        <Breadcrumb.Item active>Payment</Breadcrumb.Item>
+      </Breadcrumb>
 
-    const submitHandler = async (e) => {
-        e.preventDefault();
+      <div className="LoginPage">
+        <img
+          className="mb-4"
+          src="../../images/logo2.png"
+          alt="logo"
+          width="66px"
+        />
+        <Form className="" onSubmit={submitHandler}>
+          {/* <h1 className="h3 mb-3 fw-normal">Card Information</h1> */}
+          <Form.Group>
+            <FloatingLabel label="Card Number" className="mb-3">
+              <CardNumberElement
+                required
+                type="text"
+                className="form-control mb-3"
+                id="floatingInput"
+                options={options}
+              />
+            </FloatingLabel>
+          </Form.Group>
 
-        document.querySelector('#pay_btn').disabled = true;
+          <Form.Group>
+            <FloatingLabel label="Card Expiry" className="mb-3">
+              <CardExpiryElement
+                required
+                type="text"
+                className="form-control mb-3"
+                id="floatingInput"
+                options={options}
+              />
+            </FloatingLabel>
+          </Form.Group>
 
-        let res;
-        try {
+          <Form.Group>
+            <FloatingLabel label="Card CVC" className="mb-3">
+              <CardCvcElement
+                required
+                type="text"
+                className="form-control mb-3"
+                id="floatingInput"
+                options={options}
+              />
+            </FloatingLabel>
+          </Form.Group>
 
-            const config = {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }
+          <Button id="pay_btn" type="submit" className="mb-3 btn-lg w-100">
+            Pay {` - $${orderInfo && orderInfo.totalPrice}`}
+          </Button>
+        </Form>
+      </div>
+    </Fragment>
+  );
+};
 
-            res = await axios.post('/api/payment/process', paymentData, config)
-
-            const clientSecret = res.data.client_secret;
-
-            console.log(clientSecret);
-
-            if (!stripe || !elements) {
-                return;
-            }
-
-            const result = await stripe.confirmCardPayment(clientSecret, {
-                payment_method: {
-                    card: elements.getElement(CardNumberElement),
-                    billing_details: {
-                        name: user.name,
-                        email: user.email
-                    }
-                }
-            });
-
-            if (result.error) {
-                toast.error(result.error.message);
-                document.querySelector('#pay_btn').disabled = false;
-            } else {
-                // The payment is processed or not
-                if (result.paymentIntent.status === 'succeeded') {
-
-                    order.paymentInfo = {
-                        id: result.paymentIntent.id,
-                        status: result.paymentIntent.status
-                    }
-
-                    dispatch(createOrder(order))
-
-                    navigate('/success')
-                } else {
-                    toast.error('There is some issue while payment processing')
-                }
-            }
-            
-        } catch (error) {
-            document.querySelector('#pay_btn').disabled = false;
-            toast.error(error.response.data.message)
-        }
-    }
-
-    return (
-        <Fragment>
-            <MetaData title={'Payment'} />
-
-            <Breadcrumb className='mt-4 px-4'>
-                <Breadcrumb.Item href='/shipping'>Shipping</Breadcrumb.Item>
-                <Breadcrumb.Item href='/order/confirm'>Confirm Order</Breadcrumb.Item>
-                <Breadcrumb.Item active>Payment</Breadcrumb.Item>
-            </Breadcrumb>
-
-            <div className="LoginPage">
-                <img
-                    className="mb-4"
-                    src="../../images/logo2.png"
-                    alt="logo"
-                    width="66px"
-                />
-                <Form className="" onSubmit={submitHandler}>
-                    {/* <h1 className="h3 mb-3 fw-normal">Card Information</h1> */}
-                    <Form.Group>
-                        <FloatingLabel
-                        label="Card Number"
-                        className="mb-3"
-                        >
-                        <CardNumberElement
-                            required
-                            type="text"
-                            className="form-control mb-3"
-                            id="floatingInput"
-                            options={options}
-                        />
-                        </FloatingLabel>
-                    </Form.Group>
-
-                    <Form.Group>
-                        <FloatingLabel
-                        label="Card Expiry"
-                        className="mb-3"
-                        >
-                        <CardExpiryElement
-                            required
-                            type="text"
-                            className="form-control mb-3"
-                            id="floatingInput"
-                            options={options}
-                        />
-                        </FloatingLabel>
-                    </Form.Group>
-
-                    <Form.Group>
-                        <FloatingLabel
-                        label="Card CVC"
-                        className="mb-3"
-                        >
-                        <CardCvcElement
-                            required
-                            type="text"
-                            className="form-control mb-3"
-                            id="floatingInput"
-                            options={options}
-                        />
-                        </FloatingLabel>
-                    </Form.Group>
-
-
-                    <Button
-                        id="pay_btn"
-                        type="submit"
-                        className="mb-3 btn-lg w-100"
-                    >
-                        Pay {` - $${orderInfo && orderInfo.totalPrice}`}
-                    </Button>
-
-                </Form>
-            </div>
-        </Fragment>
-    )
-}
-
-export default Payment
+export default Payment;
