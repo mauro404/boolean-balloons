@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { createOrder, clearErrors } from "../../actions/orderActions";
@@ -13,7 +13,7 @@ import {
   CardExpiryElement,
   CardCvcElement,
 } from "@stripe/react-stripe-js";
-import { Button, Form, FloatingLabel, Breadcrumb } from "react-bootstrap";
+import { Button, Form, FloatingLabel, Breadcrumb, Container } from "react-bootstrap";
 
 const options = {
   style: {
@@ -118,24 +118,22 @@ const Payment = () => {
   };
 
   return (
-    <Fragment>
+    <>
       <MetaData title={"Payment"} />
 
-      <Breadcrumb className="mt-4 px-4">
+      <Breadcrumb className="mt-2 mt-lg-4 px-2 px-lg-4">
         <Breadcrumb.Item href="/shipping">Shipping</Breadcrumb.Item>
         <Breadcrumb.Item href="/order/confirm">Confirm Order</Breadcrumb.Item>
         <Breadcrumb.Item active>Payment</Breadcrumb.Item>
       </Breadcrumb>
 
-      <div className="LoginPage">
-        <img
-          className="mb-4"
-          src="../../images/logo2.png"
-          alt="logo"
-          width="66px"
-        />
+      <Container className="col-lg-4 col-md-6">
+        <div className="my-4 h4 text-center">
+          <img src="../../images/logo2.png" alt="logo" width="40px" />{" "}
+          Card Information
+        </div>
+
         <Form className="" onSubmit={submitHandler}>
-          {/* <h1 className="h3 mb-3 fw-normal">Card Information</h1> */}
           <Form.Group>
             <FloatingLabel label="Card Number" className="mb-3">
               <CardNumberElement
@@ -176,8 +174,8 @@ const Payment = () => {
             Pay {` - $${orderInfo && orderInfo.totalPrice}`}
           </Button>
         </Form>
-      </div>
-    </Fragment>
+      </Container>
+    </>
   );
 };
 
