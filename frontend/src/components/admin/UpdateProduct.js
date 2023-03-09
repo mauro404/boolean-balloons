@@ -1,198 +1,217 @@
-import React, { Fragment, useState, useEffect } from 'react'
-import { useParams } from 'react-router'
-import { useNavigate } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import { updateProduct, getProductDetails, clearErrors } from '../../actions/productActions'
-import { UPDATE_PRODUCT_RESET } from '../../constants/productConstants'
-import { toast } from 'react-toastify'
-import MetaData from '../layout/MetaData'
-import Sidebar from './Sidebar'
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  updateProduct,
+  getProductDetails,
+  clearErrors,
+} from "../../actions/productActions";
+import { UPDATE_PRODUCT_RESET } from "../../constants/productConstants";
+import { toast } from "react-toastify";
+import MetaData from "../layout/MetaData";
+import AdminNav from "./AdminNav";
+import { Form, FloatingLabel, Button, Container } from "react-bootstrap";
 
 const UpdateProduct = () => {
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState(0);
+  const [description, setDescription] = useState("");
+  const [stock, setStock] = useState(0);
+  const [images, setImages] = useState([]);
 
-    const [name, setName] = useState('');
-    const [price, setPrice] = useState(0);
-    const [description, setDescription] = useState('');
-    const [stock, setStock] = useState(0);
-    const [images, setImages] = useState([]);
+  const [oldImages, setOldImages] = useState([]);
+  const [imagesPreview, setImagesPreview] = useState([]);
 
-    const [oldImages, setOldImages] = useState([]);
-    const [imagesPreview, setImagesPreview] = useState([])
-    
-    const params = useParams();
-    const navigate = useNavigate()
-    const dispatch = useDispatch();
+  const params = useParams();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-    const { error, product } = useSelector(state => state.productDetails)
-    const { loading, error: updateError, isUpdated } = useSelector(state => state.product);
+  const { error, product } = useSelector((state) => state.productDetails);
+  const {
+    loading,
+    error: updateError,
+    isUpdated,
+  } = useSelector((state) => state.product);
 
-    const productId = params.id;
+  const productId = params.id;
 
-    useEffect(() => {
-
-        if (product && product._id !== productId) {
-            dispatch(getProductDetails(productId));
-        } else {
-            setName(product.name);
-            setPrice(product.price);
-            setDescription(product.description);
-            setStock(product.stock)
-            setOldImages(product.images)
-        }
-
-        if (error) {
-            toast.error(error);
-            dispatch(clearErrors())
-        }
-
-        if (updateError) {
-            toast.error(updateError);
-            dispatch(clearErrors())
-        }
-
-
-        if (isUpdated) {
-            navigate('/admin/products');
-            toast.success('Product updated successfully');
-            dispatch({ type: UPDATE_PRODUCT_RESET })
-        }
-
-    }, [dispatch, error, isUpdated, navigate, updateError, product, productId])
-
-
-    const submitHandler = (e) => {
-        e.preventDefault();
-
-        const formData = new FormData();
-        formData.set('name', name);
-        formData.set('price', price);
-        formData.set('description', description);
-        formData.set('stock', stock);
-
-        images.forEach(image => {
-            formData.append('images', image)
-        })
-
-        dispatch(updateProduct(product._id, formData))
+  useEffect(() => {
+    if (product && product._id !== productId) {
+      dispatch(getProductDetails(productId));
+    } else {
+      setName(product.name);
+      setPrice(product.price);
+      setDescription(product.description);
+      setStock(product.stock);
+      setOldImages(product.images);
     }
 
-    const onChange = e => {
-
-        const files = Array.from(e.target.files)
-
-        setImagesPreview([]);
-        setImages([])
-        setOldImages([])
-
-        files.forEach(file => {
-            const reader = new FileReader();
-
-            reader.onload = () => {
-                if (reader.readyState === 2) {
-                    setImagesPreview(oldArray => [...oldArray, reader.result])
-                    setImages(oldArray => [...oldArray, reader.result])
-                }
-            }
-
-            reader.readAsDataURL(file)
-        })
+    if (error) {
+      toast.error(error);
+      dispatch(clearErrors());
     }
 
-    return (
-        <Fragment>
-            <MetaData title={'Update Product'} />
-            <div className="row">
-                <div className="col-12 col-md-2">
-                    <Sidebar />
-                </div>
+    if (updateError) {
+      toast.error(updateError);
+      dispatch(clearErrors());
+    }
 
-                <div className="col-12 col-sm-6">
-                    <Fragment>
-                        <div className="wrapper my-5">
-                            <form className="" onSubmit={submitHandler} encType='multipart/form-data'>
-                                <h1 className="mb-4">Update Product</h1>
+    if (isUpdated) {
+      navigate("/admin/products");
+      toast.success("Product updated successfully");
+      dispatch({ type: UPDATE_PRODUCT_RESET });
+    }
+  }, [dispatch, error, isUpdated, navigate, updateError, product, productId]);
 
-                                <div className="form-group">
-                                    <label htmlFor="name_field">Name</label>
-                                    <input
-                                        type="text"
-                                        id="name_field"
-                                        className="form-control"
-                                        value={name}
-                                        onChange={(e) => setName(e.target.value)}
-                                    />
-                                </div>
+  const submitHandler = (e) => {
+    e.preventDefault();
 
-                                <div className="form-group">
-                                    <label htmlFor="price_field">Price</label>
-                                    <input
-                                        type="text"
-                                        id="price_field"
-                                        className="form-control"
-                                        value={price}
-                                        onChange={(e) => setPrice(e.target.value)}
-                                    />
-                                </div>
+    const formData = new FormData();
+    formData.set("name", name);
+    formData.set("price", price);
+    formData.set("description", description);
+    formData.set("stock", stock);
 
-                                <div className="form-group">
-                                    <label htmlFor="description_field">Description</label>
-                                    <textarea className="form-control" id="description_field" rows="8" value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
-                                </div>
+    images.forEach((image) => {
+      formData.append("images", image);
+    });
 
-                                <div className="form-group">
-                                    <label htmlFor="stock_field">Stock</label>
-                                    <input
-                                        type="number"
-                                        id="stock_field"
-                                        className="form-control"
-                                        value={stock}
-                                        onChange={(e) => setStock(e.target.value)}
-                                    />
-                                </div>
+    dispatch(updateProduct(product._id, formData));
+  };
 
-                                <div className='form-group'>
-                                    <label>Images</label>
+  const onChange = (e) => {
+    const files = Array.from(e.target.files);
 
-                                    <div className='custom-file'>
-                                        <input
-                                            type='file'
-                                            name='product_images'
-                                            className='custom-file-input'
-                                            id='customFile'
-                                            onChange={onChange}
-                                            multiple
-                                        />
-                                        
-                                    </div>
+    setImagesPreview([]);
+    setImages([]);
+    setOldImages([]);
 
-                                    {oldImages && oldImages.map(img => (
-                                        <img key={img} src={img.url} alt={img.url} className="mt-3 mr-2" width="55" />
-                                    ))}
+    files.forEach((file) => {
+      const reader = new FileReader();
 
-                                    {imagesPreview.map(img => (
-                                        <img src={img} key={img} alt="Images Preview" className="mt-3 mr-2" width="55" />
-                                    ))}
+      reader.onload = () => {
+        if (reader.readyState === 2) {
+          setImagesPreview((oldArray) => [...oldArray, reader.result]);
+          setImages((oldArray) => [...oldArray, reader.result]);
+        }
+      };
 
-                                </div>
+      reader.readAsDataURL(file);
+    });
+  };
 
+  return (
+    <Container className="px-2 px-md-0 px-lg-5">
+      <MetaData title={"Update Product"} />
+      <AdminNav />
 
-                                <button
-                                    id="login_button"
-                                    type="submit"
-                                    className="btn btn-block py-3"
-                                    disabled={loading ? true : false}
-                                >
-                                    UPDATE
-                            </button>
+      <Form className="" onSubmit={submitHandler} encType="multipart/form-data">
+        <h3 className="py-4">Update Product</h3>
 
-                            </form>
-                        </div>
-                    </Fragment>
-                </div>
-            </div>
+        <Form.Group>
+          <FloatingLabel label="Name" className="mb-3">
+            <Form.Control
+              required
+              type="text"
+              id="name_field"
+              className="form-control mb-3"
+              name="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </FloatingLabel>
+        </Form.Group>
 
-        </Fragment>
-    )
-}
+        <Form.Group>
+          <FloatingLabel label="Price" className="mb-3">
+            <Form.Control
+              required
+              type="text"
+              id="price_field"
+              className="form-control mb-3"
+              name="price"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+            />
+          </FloatingLabel>
+        </Form.Group>
 
-export default UpdateProduct
+        <Form.Group>
+          <FloatingLabel label="Description" className="mb-3">
+            <Form.Control
+              required
+              type="textarea"
+              id="description_field"
+              className="form-control mb-3"
+              rows="8"
+              name="description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          </FloatingLabel>
+        </Form.Group>
+
+        <Form.Group>
+          <FloatingLabel label="Stock" className="mb-3">
+            <Form.Control
+              required
+              type="number"
+              id="stock_field"
+              className="form-control mb-3"
+              name="stock"
+              value={stock}
+              onChange={(e) => setStock(e.target.value)}
+            />
+          </FloatingLabel>
+        </Form.Group>
+
+        <Form.Group>
+          <FloatingLabel label="Images" className="mb-3 pt-2">
+            <Form.Control
+              required
+              type="file"
+              name="product_images"
+              className="form-control custom-file-input"
+              id="customFile"
+              onChange={onChange}
+              multiple
+            />
+
+            {oldImages &&
+              oldImages.map((img) => (
+                <img
+                  key={img}
+                  src={img.url}
+                  alt={img.url}
+                  className="mt-3 mr-2"
+                  width="55"
+                />
+              ))}
+
+            {imagesPreview.map((img) => (
+              <img
+                src={img}
+                key={img}
+                alt="Images Preview"
+                className="mt-3 mr-2"
+                width="55"
+              />
+            ))}
+          </FloatingLabel>
+        </Form.Group>
+
+        <Button
+          id="login_button"
+          type="submit"
+          className="btn btn-block mb-3"
+          disabled={loading ? true : false}
+        >
+          UPDATE
+        </Button>
+      </Form>
+    </Container>
+  );
+};
+
+export default UpdateProduct;
