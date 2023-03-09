@@ -2,7 +2,7 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <div className='Footer'>@boolean ballons 2023. All rights reserved.</div>
+    <div className='bg-light' style={{ padding: '2% 3%', marginTop: "auto" }}>@boolean ballons 2023. All rights reserved.</div>
   )
 }
 

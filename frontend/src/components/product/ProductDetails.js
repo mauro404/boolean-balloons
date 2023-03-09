@@ -1,6 +1,7 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
+import { Link } from "react-router-dom";
 import {
   getProductDetails,
   newReview,
@@ -128,7 +129,7 @@ const ProductDetails = () => {
         <Fragment>
           <MetaData title={product.name} />
           <div className="row d-flex justify-content-around">
-            <div className="col-12 col-lg-5 mt-5 img-fluid" id="product_image">
+            <div className="col-10 col-lg-5 mt-5 img-fluid" id="product_image">
               <img
                 className="d-block w-100 rounded-3"
                 src={product.images && product.images[0].url}
@@ -136,7 +137,7 @@ const ProductDetails = () => {
               />
             </div>
 
-            <div className="col-12 col-lg-5 mt-5">
+            <div className="col-10 col-lg-5 mt-5">
               <h3>{product.name}</h3>
               <p id="product_id">Product # {product._id}</p>
               <p>{product.description}</p>
@@ -157,7 +158,7 @@ const ProductDetails = () => {
 
               <hr />
 
-              <p id="product_price">${product.price}</p>
+              <p id="product_price">${(product.price)?.toFixed(2)}</p>
               <div className="stockCounter d-inline" style={{ height: "16px" }}>
                 <span className="btn btn-light minus" onClick={decreaseQty}>
                   -
@@ -190,15 +191,15 @@ const ProductDetails = () => {
 
               {user ? (
                 <div className="btn-review-position">
-                  <Button
+                  <Link as={Button}
                     type="button"
-                    className="btn btn-review"
+                    className="btn-review"
                     data-toggle="modal"
                     data-target="#ratingModal"
                     onClick={handleShow}
                   >
                     Review Product
-                  </Button>
+                  </Link>
                 </div>
               ) : (
                 <div className="alert alert-danger mt-5" type="alert">
@@ -255,9 +256,16 @@ const ProductDetails = () => {
           </div>
 
           {product.reviews && product.reviews.length > 0 ? (
-            <ReviewsList reviews={product.reviews} />
+            <ReviewsList reviews={product.reviews} className=""/>
           ) : (
-            <p>No Reviews</p>
+            <div className="row d-flex justify-content-around">
+              <div className="col-lg-11 col-10 mt-5">
+                <h4 className="">Reviews:</h4>
+                <hr className=""/>
+                <p className="review_comment text-muted my-3">There are no reviews.<br/> Be the first to review this product!</p>
+                <hr />
+              </div>
+            </div>
           )}
 
         </Fragment>
