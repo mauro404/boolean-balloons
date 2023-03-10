@@ -1,13 +1,12 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import MetaData from '../layout/MetaData'
-
-import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { register, clearErrors } from '../../actions/userActions'
+import { toast } from 'react-toastify'
+import MetaData from '../layout/MetaData'
+import { Form, FloatingLabel, Button, Container } from 'react-bootstrap'
 
 const Register = () => {
-
     const navigate = useNavigate();
 
     const [user, setUser] = useState({
@@ -18,26 +17,25 @@ const Register = () => {
 
     const { name, email, password } = user;
 
-    const [avatar, setAvatar] = useState('')
-    const [avatarPreview, setAvatarPreview] = useState('/images/default_avatar2.png')
+    const avatar = '/images/default_avatar.png'
+    // const [avatar, setAvatar] = useState('/images/default_avatar5.png')
+    // const [avatarPreview, setAvatarPreview] = useState('/images/default_avatar2.png')
 
-    const alert = useAlert();
     const dispatch = useDispatch();
 
     const { isAuthenticated, error, loading } = useSelector(state => state.auth);
 
     useEffect(() => {
-
         if (isAuthenticated) {
             navigate('/')
         }
 
         if (error) {
-            alert.error(error);
+            toast.error(error);
             dispatch(clearErrors());
         }
 
-    }, [dispatch, alert, isAuthenticated, error])
+    }, [dispatch, toast, isAuthenticated, error])
 
     const submitHandler = (e) => {
         e.preventDefault();
@@ -52,22 +50,24 @@ const Register = () => {
     }
 
     const onChange = e => {
-        if (e.target.name === 'avatar') {
+        setUser({ ...user, [e.target.name]: e.target.value })
 
-            const reader = new FileReader();
+        // if (e.target.name === 'avatar') {
 
-            reader.onload = () => {
-                if (reader.readyState === 2) {
-                    setAvatarPreview(reader.result)
-                    setAvatar(reader.result)
-                }
-            }
+        //     const reader = new FileReader();
 
-            reader.readAsDataURL(e.target.files[0])
+        //     reader.onload = () => {
+        //         if (reader.readyState === 2) {
+        //             setAvatarPreview(reader.result)
+        //             setAvatar(reader.result)
+        //         }
+        //     }
 
-        } else {
-            setUser({ ...user, [e.target.name]: e.target.value })
-        }
+        //     reader.readAsDataURL(e.target.files[0])
+
+        // } else {
+        //     setUser({ ...user, [e.target.name]: e.target.value })
+        // }
     }
 
     return (
@@ -75,86 +75,105 @@ const Register = () => {
 
             <MetaData title={'Register User'} />
 
-            <div className="row wrapper">
-                <div className="col-10 col-lg-5">
-                    <form className="shadow-lg" onSubmit={submitHandler} encType='multipart/form-data'>
-                        <h1 className="mb-3">Register</h1>
+            <Container className="col-lg-4 col-md-6 text-center my-5">
+                <Form className="" onSubmit={submitHandler} encType='multipart/form-data'>
+                    <img
+                        className="mb-2"
+                        src="../../images/logo2.png"
+                        alt="logo"
+                        width="66px"
+                    />
+                    <h1 className="h3 mb-3 fw-normal">Please Sign Up</h1>
 
-                        <div className="form-group">
-                            <label htmlFor="email_field">Name</label>
-                            <input
-                                type="name"
-                                id="name_field"
-                                className="form-control"
-                                name='name'
-                                value={name}
-                                onChange={onChange}
-                            />
-                        </div>
+                    <Form.Group>
+                        <FloatingLabel
+                        label="Name"
+                        className="mb-3"
+                        >
+                        <Form.Control
+                            required
+                            type="name"
+                            className="form-control mb-3"
+                            id="floatingInput"
+                            name="name"
+                            value={name}
+                            onChange={onChange}
+                        />
+                        </FloatingLabel>
+                    </Form.Group>
 
-                        <div className="form-group">
-                            <label htmlFor="email_field">Email</label>
-                            <input
-                                type="email"
-                                id="email_field"
-                                className="form-control"
-                                name='email'
-                                value={email}
-                                onChange={onChange}
-                            />
-                        </div>
+                    <Form.Group>
+                        <FloatingLabel
+                        label="Email Address"
+                        className="mb-3"
+                        >
+                        <Form.Control
+                            required
+                            type="email"
+                            className="form-control mb-3"
+                            id="floatingInput"
+                            name="email"
+                            value={email}
+                            onChange={onChange}
+                        />
+                        </FloatingLabel>
+                    </Form.Group>
 
-                        <div className="form-group">
-                            <label htmlFor="password_field">Password</label>
-                            <input
-                                type="password"
-                                id="password_field"
-                                className="form-control"
-                                name='password'
-                                value={password}
-                                onChange={onChange}
-                            />
-                        </div>
+                    <Form.Group>
+                        <FloatingLabel
+                        label="Password"
+                        className="mb-3"
+                        >
+                        <Form.Control
+                            required
+                            type="password"
+                            className="form-control mb-3"
+                            id="floatingPassword"
+                            name="password"
+                            value={password}
+                            onChange={onChange}
+                        />
+                        </FloatingLabel>
+                    </Form.Group>
 
-                        <div className='form-group'>
-                            <label htmlFor='avatar_upload'>Avatar</label>
-                            <div className='d-flex align-items-center'>
-                                <div>
-                                    <figure className='avatar mr-3 item-rtl'>
-                                        <img
-                                            src={avatarPreview}
-                                            className='rounded-circle'
-                                            alt='Avatar Preview'
-                                        />
-                                    </figure>
-                                </div>
-                                <div className='custom-file'>
-                                    <input
-                                        type='file'
-                                        name='avatar'
-                                        className='custom-file-input'
-                                        id='customFile'
-                                        accept="iamges/*"
-                                        onChange={onChange}
+                    {/* <div className='form-group'>
+                        <label htmlFor='avatar_upload'>Avatar</label>
+                        <div className='d-flex align-items-center'>
+                            <div>
+                                <figure className='avatar mr-3 item-rtl'>
+                                    <img
+                                        src={avatarPreview}
+                                        className='rounded-circle'
+                                        alt='Avatar Preview'
                                     />
-                                    <label className='custom-file-label' htmlFor='customFile'>
-                                        Choose Avatar
-                                    </label>
-                                </div>
+                                </figure>
+                            </div>
+                            <div className='custom-file'>
+                                <input
+                                    type='file'
+                                    name='avatar'
+                                    className='custom-file-input'
+                                    id='customFile'
+                                    accept="iamges/*"
+                                    onChange={onChange}
+                                />
+                                <label className='custom-file-label' htmlFor='customFile'>
+                                    Choose Avatar
+                                </label>
                             </div>
                         </div>
+                    </div> */}
 
-                        <button
-                            id="register_button"
-                            type="submit"
-                            className="btn btn-block py-3"
-                            disabled={loading ? true : false}
-                        >
-                            REGISTER
-                        </button>
-                    </form>
-                </div>
-            </div>
+                    <Button
+                        id="register_button"
+                        type="submit"
+                        className="mb-3 btn-lg w-100"
+                        disabled={loading ? true : false}
+                    >
+                        Sign Up
+                    </Button>
+                </Form>
+            </Container>
 
         </Fragment>
     )

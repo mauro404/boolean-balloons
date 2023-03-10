@@ -41,7 +41,7 @@ const Profile = () => {
                   <Card.Img
                     className="rounded-circle img-fluid"
                     variant="top"
-                    src={user.avatar.url}
+                    src={'/images/default_avatar.png'}
                     alt={user.name}
                     style={{ width: "150px" }}
                   />
@@ -78,9 +78,9 @@ const Profile = () => {
 
             <Col lg={8}>
               {orders && orders.length === 0 ? (
-                <Container className="LoginPage">
+                <Container className="col-lg-4 col-md-6 text-center">
                   <img
-                    className="mb-4"
+                    className="mb-2"
                     src="../../images/logo2.png"
                     alt="logo"
                     width="66px"

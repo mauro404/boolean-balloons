@@ -1,34 +1,31 @@
 import React, { Fragment, useState, useEffect } from 'react'
-
-import MetaData from '../layout/MetaData'
-
-import { useAlert } from 'react-alert'
+import { useParams } from 'react-router'
+import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { resetPassword, clearErrors } from '../../actions/userActions'
+import { toast } from 'react-toastify'
+import MetaData from '../layout/MetaData'
 
-const NewPassword = ({ history, match }) => {
-
+const NewPassword = () => {
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
-
-    const alert = useAlert();
     const dispatch = useDispatch();
-
+    const navigate = useNavigate()
+    const params = useParams();
     const { error, success } = useSelector(state => state.forgotPassword)
 
     useEffect(() => {
-
         if (error) {
-            alert.error(error);
+            toast.error(error);
             dispatch(clearErrors());
         }
 
         if (success) {
-            alert.success('Password updated successfully')
-            history.push('/login')
+            toast.success('Password updated successfully')
+            navigate('/login')
         }
 
-    }, [dispatch, alert, error, success, history])
+    }, [dispatch, error, success, navigate])
 
     const submitHandler = (e) => {
         e.preventDefault();
@@ -37,7 +34,7 @@ const NewPassword = ({ history, match }) => {
         formData.set('password', password);
         formData.set('confirmPassword', confirmPassword);
 
-        dispatch(resetPassword(match.params.token, formData))
+        dispatch(resetPassword(params.token, formData))
     }
 
     return (

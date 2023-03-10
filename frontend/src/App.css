@@ -12,16 +12,11 @@ code {
     monospace;
 }
 
-.LoginPage {
-  padding: 3% 30%;
-  text-align: center;
+.App{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
-
-.Footer{
-  padding: 1% 0% 1% 3%;
-  background-color: rgba(0, 0, 0, 0.03);
-}
-
 
 #product_image {
   margin-top: 9rem;
@@ -52,6 +47,14 @@ code {
 .rating-inner::before {
   content: '\f005 \f005 \f005 \f005 \f005';
   color: #f8ce0b;
+}
+
+/* Loader */
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
 }
 
 /* Product Details Page */

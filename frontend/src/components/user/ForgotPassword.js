@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { forgotPassword, clearErrors } from '../../actions/userActions'
 import { toast } from 'react-toastify'
 import MetaData from '../layout/MetaData'
-import { Form, FloatingLabel, Button } from 'react-bootstrap'
+import { Form, FloatingLabel, Button, Container } from 'react-bootstrap'
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState('')
@@ -34,10 +34,10 @@ const ForgotPassword = () => {
         <Fragment>
             <MetaData title={'Forgot Password'} />
 
-            <div className="LoginPage">
+            <Container className="col-lg-4 col-md-6 text-center my-5">
                 <Form className="" onSubmit={submitHandler}>
                 <img
-                    className="mb-4"
+                    className="mb-2"
                     src="../../images/logo2.png"
                     alt="logo"
                     width="66px"
@@ -68,7 +68,7 @@ const ForgotPassword = () => {
                 </Button>
 
                 </Form>
-            </div>
+            </Container>
 
         </Fragment>
     )

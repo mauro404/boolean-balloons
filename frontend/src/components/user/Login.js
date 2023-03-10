@@ -5,7 +5,7 @@ import { login, clearErrors } from '../../actions/userActions'
 import { toast } from 'react-toastify'
 import Loader from '../layout/Loader'
 import MetaData from '../layout/MetaData'
-import { Form, FloatingLabel, Button } from 'react-bootstrap'
+import { Form, FloatingLabel, Button, Container } from 'react-bootstrap'
 
 const Login = ({ location }) => {
     const [email, setEmail] = useState('');
@@ -38,10 +38,10 @@ const Login = ({ location }) => {
         <Fragment>
             <MetaData title={'Login'} />
             {loading ? <Loader /> : (
-                <div className='LoginPage'>
+                <Container className='col-lg-4 col-md-6 text-center my-5'>
                     <Form className="" onSubmit={submitHandler}>
                         <img
-                            className="mb-4"
+                            className="mb-2"
                             src="../../images/logo2.png"
                             alt="logo"
                             width="66px"
@@ -94,7 +94,7 @@ const Login = ({ location }) => {
                     {" "}
                     Sign Up
                     </Link> 
-                </div>
+                </Container>
             )}
         </Fragment>
     )
