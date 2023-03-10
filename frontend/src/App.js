@@ -89,15 +89,15 @@ function App() {
             <Route path="/orders/me" element={ <ProtectedRoute> <OrdersList /> </ProtectedRoute>} />
             <Route path="/order/:id" element={ <ProtectedRoute> <OrderDetails /> </ProtectedRoute>} />
 
-            <Route path="/dashboard" element={ <ProtectedRoute> <Dashboard /> </ProtectedRoute>} />
-            <Route path="/admin/products" element={ <ProtectedRoute> <ProductListAdm /> </ProtectedRoute>} />
-            <Route path="/admin/product" element={ <ProtectedRoute> <NewProduct /> </ProtectedRoute>} />
-            <Route path="/admin/product/:id" element={ <ProtectedRoute> <UpdateProduct /> </ProtectedRoute>} />
-            <Route path="/admin/orders" element={ <ProtectedRoute> <OrdersListAdm /> </ProtectedRoute>} />
-            <Route path="/admin/orders/:id" element={ <ProtectedRoute> <ProcessOrder /> </ProtectedRoute>} />
-            <Route path="/admin/users" element={ <ProtectedRoute> <UsersList /> </ProtectedRoute>} />
-            <Route path="/admin/user/:id" element={ <ProtectedRoute> <UpdateUser /> </ProtectedRoute>} />
-            <Route path="/admin/reviews" element={ <ProtectedRoute> <ProductReviews /> </ProtectedRoute>} />
+            <Route path="/dashboard" element={ <ProtectedRoute isAdmin={true}> <Dashboard /> </ProtectedRoute>} />
+            <Route path="/admin/products" element={ <ProtectedRoute isAdmin={true}> <ProductListAdm /> </ProtectedRoute>} />
+            <Route path="/admin/product" element={ <ProtectedRoute isAdmin={true}> <NewProduct /> </ProtectedRoute>} />
+            <Route path="/admin/product/:id" element={ <ProtectedRoute isAdmin={true}> <UpdateProduct /> </ProtectedRoute>} />
+            <Route path="/admin/orders" element={ <ProtectedRoute isAdmin={true}> <OrdersListAdm /> </ProtectedRoute>} />
+            <Route path="/admin/order/:id" element={ <ProtectedRoute isAdmin={true}> <ProcessOrder /> </ProtectedRoute>} />
+            <Route path="/admin/users" element={ <ProtectedRoute isAdmin={true}> <UsersList /> </ProtectedRoute>} />
+            <Route path="/admin/user/:id" element={ <ProtectedRoute isAdmin={true}> <UpdateUser /> </ProtectedRoute>} />
+            <Route path="/admin/reviews" element={ <ProtectedRoute isAdmin={true}> <ProductReviews /> </ProtectedRoute>} />
           </Routes>
         <Footer />
       </div>

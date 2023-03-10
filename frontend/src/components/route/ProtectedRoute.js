@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { Navigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { loadUser } from '../../actions/userActions'
+import Loader from '../layout/Loader'
 
 const ProtectedRoute = ({ children, isAdmin }) => {
 
@@ -15,7 +16,7 @@ const ProtectedRoute = ({ children, isAdmin }) => {
         }
     }, [isAuthenticated, loading])
 
-    if(loading) return <h1>Loading...</h1>
+    if(loading) return <Loader />
 
     if(!loading && isAuthenticated) {
         if(isAdmin === true && user.role !== "admin") {
