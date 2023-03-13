@@ -72,7 +72,7 @@ const Payment = () => {
         },
       };
 
-      res = await axios.post("/api/payment/process", paymentData, config);
+      res = await axios.post(`${process.env.REACT_APP_API_URL}/api/payment/process`, paymentData, config);
 
       const clientSecret = res.data.client_secret;
 

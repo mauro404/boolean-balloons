@@ -49,7 +49,7 @@ function App() {
     store.dispatch(loadUser())
 
     async function getStripeApiKey() {
-      const { data } = await axios.get('/api/stripeapi');
+      const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/api/stripeapi`);
 
       setStripeApiKey(data.stripeApiKey)
     }

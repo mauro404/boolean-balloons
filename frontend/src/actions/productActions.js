@@ -36,7 +36,7 @@ export const getProducts = () => async (dispatch) => {
 
         dispatch({ type: ALL_PRODUCTS_REQUEST })
 
-        const { data } = await axios.get('api/products')
+        const { data } = await axios.get(`${process.env.REACT_APP_API_URL}api/products`)
 
         dispatch({
             type: ALL_PRODUCTS_SUCCESS,
@@ -62,7 +62,7 @@ export const newProduct = (productData) => async (dispatch) => {
             }
         }
 
-        const { data } = await axios.post(`/api/admin/product/new`, productData, config)
+        const { data } = await axios.post(`${process.env.REACT_APP_API_URL}/api/admin/product/new`, productData, config)
 
         dispatch({
             type: NEW_PRODUCT_SUCCESS,
@@ -83,7 +83,7 @@ export const deleteProduct = (id) => async (dispatch) => {
 
         dispatch({ type: DELETE_PRODUCT_REQUEST })
 
-        const { data } = await axios.delete(`/api/admin/product/${id}`)
+        const { data } = await axios.delete(`${process.env.REACT_APP_API_URL}/api/admin/product/${id}`)
 
         dispatch({
             type: DELETE_PRODUCT_SUCCESS,
@@ -110,7 +110,7 @@ export const updateProduct = (id, productData) => async (dispatch) => {
             }
         }
 
-        const { data } = await axios.put(`/api/admin/product/${id}`, productData, config)
+        const { data } = await axios.put(`${process.env.REACT_APP_API_URL}/api/admin/product/${id}`, productData, config)
 
         dispatch({
             type: UPDATE_PRODUCT_SUCCESS,
@@ -130,7 +130,7 @@ export const getProductDetails = (id) => async (dispatch) => {
 
         dispatch({ type: PRODUCT_DETAILS_REQUEST })
 
-        const { data } = await axios.get(`/api/product/${id}`)
+        const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/api/product/${id}`)
 
         dispatch({
             type: PRODUCT_DETAILS_SUCCESS,
@@ -156,7 +156,7 @@ export const newReview = (reviewData) => async (dispatch) => {
             }
         }
 
-        const { data } = await axios.put(`/api/review`, reviewData, config)
+        const { data } = await axios.put(`${process.env.REACT_APP_API_URL}/api/review`, reviewData, config)
 
         dispatch({
             type: NEW_REVIEW_SUCCESS,
@@ -176,7 +176,7 @@ export const getAdminProducts = () => async (dispatch) => {
 
         dispatch({ type: ADMIN_PRODUCTS_REQUEST })
 
-        const { data } = await axios.get(`/api/admin/products`)
+        const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/api/admin/products`)
 
         dispatch({
             type: ADMIN_PRODUCTS_SUCCESS,
@@ -198,7 +198,7 @@ export const getProductReviews = (id) => async (dispatch) => {
 
         dispatch({ type: GET_REVIEWS_REQUEST })
 
-        const { data } = await axios.get(`/api/reviews?id=${id}`)
+        const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/api/reviews?id=${id}`)
 
         dispatch({
             type: GET_REVIEWS_SUCCESS,
@@ -220,7 +220,7 @@ export const deleteReview = (id, productId) => async (dispatch) => {
 
         dispatch({ type: DELETE_REVIEW_REQUEST })
 
-        const { data } = await axios.delete(`/api/reviews?id=${id}&productId=${productId}`)
+        const { data } = await axios.delete(`${process.env.REACT_APP_API_URL}/api/reviews?id=${id}&productId=${productId}`)
 
         dispatch({
             type: DELETE_REVIEW_SUCCESS,
