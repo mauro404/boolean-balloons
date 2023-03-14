@@ -169,7 +169,6 @@ const UpdateProduct = () => {
         <Form.Group>
           <FloatingLabel label="Images" className="mb-3 pt-2">
             <Form.Control
-              required
               type="file"
               name="product_images"
               className="form-control custom-file-input"

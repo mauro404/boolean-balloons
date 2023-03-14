@@ -45,6 +45,8 @@ function App() {
 
   const [stripeApiKey, setStripeApiKey] = useState('');
 
+  axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
+
   useEffect(() => {
     store.dispatch(loadUser())
 

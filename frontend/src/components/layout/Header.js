@@ -21,7 +21,7 @@ const Header = () => {
     <Fragment>
       <Navbar collapseOnSelect expand="md" bg="light" variant="" style={{ padding: '1.5% 3%' }}>
         <>
-          <Navbar.Brand href="/"><img className="" src="../../images/logo2.png" alt="logo" width='33px'/>boolean ballons</Navbar.Brand>
+          <Navbar.Brand href="/"><img className="" src="../../images/logo2.png" alt="logo" width='33px'/>boolean balloons</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
