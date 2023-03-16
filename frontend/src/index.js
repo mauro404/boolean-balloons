@@ -13,7 +13,7 @@ root.render(
   <Router>
     <Provider store={store}>
         <App />
-      <ToastContainer />
+      <ToastContainer autoClose={2000}/>
     </Provider>
   </Router>
 );
