@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../actions/userActions";
@@ -13,12 +13,11 @@ const Header = () => {
   const { cartItems } = useSelector((state) => state.cart);
 
   const logoutHandler = () => {
-    toast.success('Logged out successfully.')
     dispatch(logout());
+    toast.success('Logged out successfully.')
   };
 
   return (
-    <Fragment>
       <Navbar collapseOnSelect expand="md" bg="light" variant="" style={{ padding: '1.5% 3%' }}>
         <>
           <Navbar.Brand href="/"><img className="" src="../../images/logo2.png" alt="logo" width='33px'/>boolean balloons</Navbar.Brand>
@@ -33,7 +32,6 @@ const Header = () => {
               {user ? (
                 <NavDropdown title={<FontAwesomeIcon icon={faUser}/>} id="collasible-nav-dropdown" align="end">
                     <NavDropdown.Item href="/me">Profile</NavDropdown.Item>
-                    {/* <NavDropdown.Item href="/orders/me">Orders</NavDropdown.Item> */}
                     <NavDropdown.Item href="/" onClick={logoutHandler}>Logout</NavDropdown.Item>
                     { user && user.role === 'admin' && (
                     <><NavDropdown.Divider />
@@ -66,8 +64,6 @@ const Header = () => {
           </Navbar.Collapse>
         </>
       </Navbar>
-      
-    </Fragment>
   );
 };
 

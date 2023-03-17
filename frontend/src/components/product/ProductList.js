@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProducts } from '../../actions/productActions'
 import { toast } from 'react-toastify'
@@ -22,14 +22,14 @@ const ProductList = () => {
     }, [dispatch, error])
 
     return (
-        <Fragment>
+        <>
             {loading ? <Loader /> : (
                 <div>
                     <MetaData title={'Products'} />
                     <img className="" src="../images/hero-products.png" alt="hero-products" width="100%"/>
                     <h1 style={{ paddingTop: '2%', textAlign: 'center' }}>All Balloons</h1>
 
-                    <Row xs={1} md={2} lg={4} className="g-4" style={{ paddingTop: '3%', paddingLeft: '5%', paddingRight: '5%', paddingBottom: "3%"}} >
+                    <Row xs={1} md={2} lg={4} className="g-4" style={{ paddingTop: '2%', paddingLeft: '5%', paddingRight: '5%', paddingBottom: "2%"}} >
                             {products?.map(product => (
                                 <Product key={product._id} product={product} />
                             ))
@@ -38,8 +38,7 @@ const ProductList = () => {
                     </Row>
                 </div>
             )}
-
-        </Fragment>
+        </>
     )
 }
 
