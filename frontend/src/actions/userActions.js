@@ -54,7 +54,7 @@ export const login = (email, password) => async (dispatch) => {
       { email, password },
       config
     );
-
+    localStorage.setItem("token", data.token);
     dispatch({
       type: LOGIN_SUCCESS,
       payload: data.user,
@@ -83,7 +83,7 @@ export const register = (userData) => async (dispatch) => {
       userData,
       config
     );
-
+    localStorage.setItem("token", data.token);
     dispatch({
       type: REGISTER_USER_SUCCESS,
       payload: data.user,
@@ -235,7 +235,7 @@ export const resetPassword = (token, passwords) => async (dispatch) => {
 export const logout = () => async (dispatch) => {
   try {
     await axios.get(`${process.env.REACT_APP_API_URL}/api/logout`);
-
+    localStorage.removeItem("token");
     dispatch({
       type: LOGOUT_SUCCESS,
     });
